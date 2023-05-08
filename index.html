@@ -39,8 +39,13 @@
 			cursor: pointer;
 		}
 	</style>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		function getQuote() {
+			// clear existing quote
+			$('#quote').empty();
+			$('#author').empty();
+
 			fetch('https://animechan.vercel.app/api/random')
 				.then(response => response.json())
 				.then(quote => {
@@ -48,13 +53,18 @@
 					document.getElementById("author").innerHTML = "- " + quote.character + " (" + quote.anime + ")";
 				});
 		}
+
+		$(function() {
+			// add event listener to button
+			$('#getQuoteButton').click(getQuote);
+		});
 	</script>
 </head>
 <body>
 	<div class="container">
 		<div class="quote" id="quote"></div>
 		<div class="author" id="author"></div>
-		<button onclick="getQuote()">Get Quote</button>
+		<button id="getQuoteButton">Get Quote</button>
 	</div>
 </body>
 </html>
