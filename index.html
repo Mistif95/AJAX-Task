@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AmiiboAPI Demo</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+		}
+
+		table {
+			border-collapse: collapse;
+			margin: 20px auto;
+			background-color: white;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+		}
+
+		th, td {
+			padding: 10px;
+			border: 1px solid black;
+			text-align: left;
+		}
+
+		th {
+			background-color: #333;
+			color: white;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+
+		img {
+  			max-height: 100px;
+  			max-width: 100px;
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function() {
+			$.getJSON("https://www.amiiboapi.com/api/amiibo/", function(data) {
+				var table = $("<table>").append("<tr><th>Name</th><th>Character</th><th>Series</th><th>Image</th></tr>");
+				$.each(data.amiibo, function(i, amiibo) {
+					var tr = $("<tr>");
+					tr.append($("<td>").text(amiibo.name));
+					tr.append($("<td>").text(amiibo.character));
+					tr.append($("<td>").text(amiibo.amiiboSeries));
+					tr.append($("<td>").append($("<img>").attr("src", amiibo.image).attr("alt", amiibo.name)));
+					table.append(tr);
+				});
+					$("#amiiboTable").append(table);
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="amiiboTable"></div>
+</body>
+</html>
